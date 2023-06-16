@@ -4,9 +4,21 @@ import Guitarra from './components/Guitarra.vue'
 import { db } from './db'
 
 import { ref } from 'vue'
+type Guitarra = {
+  id: number,
+  nombre: string,
+  imagen: string,
+  descripcion: string,
+  precio: number,
+}
+
 const guitarras = ref(db)
+const carrito  = ref<Guitarra[]>([])
 
 
+const agregarCarrito = (guitarra : Guitarra) => {
+  carrito.value.push(guitarra)
+}
 </script>
 
 <template>
@@ -17,7 +29,10 @@ const guitarras = ref(db)
 
     <div class="row mt-5">
 
-      <Guitarra v-for="guitarra in guitarras" :guitarra="guitarra" />
+      <Guitarra 
+        v-for="guitarra in guitarras" 
+        :guitarra="guitarra"
+        @agregar-carrito="agregarCarrito"/>
     </div>
   </main>
 
