@@ -10,6 +10,7 @@ type Guitarra = {
   imagen: string,
   descripcion: string,
   precio: number,
+  cantidad: number
 }
 
 const guitarras = ref(db)
@@ -17,7 +18,13 @@ const carrito  = ref<Guitarra[]>([])
 
 
 const agregarCarrito = (guitarra : Guitarra) => {
-  carrito.value.push(guitarra)
+  const indiceGuitarra = carrito.value.findIndex(({id}) => id === guitarra.id)
+  if(indiceGuitarra == -1){
+    guitarra.cantidad = 0
+    carrito.value.push(guitarra)
+  }else{
+    guitarra.cantidad++
+  }
 }
 </script>
 
